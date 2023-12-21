@@ -1,20 +1,20 @@
 import cv2
 
-def detect_and_draw_faces(image_path):
-    # 画像読み込み
-    img = cv2.imread(image_path)
+def apply_mosaic_to_faces(img):
+    # カスケードファイルの読み込み
+    cascade_file = "haarcascade_frontalface_default.xml"
+    face_cascade = cv2.CascadeClassifier(cascade_file)
 
-    # グレースケールに変換
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # 画像の読み込み(確認用)
+    #img = cv2.imread(image_path)
 
-    # OpenCVのカスケード分類器を使用して顔検出器を初期化
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    # 顔検出
+    face_list = face_cascade.detectMultiScale(img, scaleFactor=1.1, minSize=(30, 30))
 
-    # 顔検出を実行
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5, minSize=(30, 30))
-
-    # 検出された顔に枠を描画
-    for (x, y, w, h) in faces:
+ # 検出された顔に枠を描画
+    for (x, y, w, h) in face_list:
         cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+    # 処理済みの画像を保存(確認用)
+    #cv2.imwrite(output_path, img)
 
     return img
