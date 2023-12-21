@@ -14,10 +14,9 @@ class LoggingEventHandler2(LoggingEventHandler):
         # ---以下,画像が新たにアップロードされたときに実行する処理
 
         #画像読み込み
-        img = cv2.imread(path)
-        #[デバッグ用]新たに読み込まれた画像を表示 ここでエラー, 「Exception in thread Thread-1: ...」 imwrite等でも同様のエラー起きる
-        cv2.imshow("uploaded_img", img)
-        cv2.waitKey(1)
+        img = cv2.imread(file_absolute_path)
+        print(img)
+        #cv2.imwrite("./static/images/gray/"+file_name, img) ここで書き込みできる
         
 
     def on_deleted(self, event):
