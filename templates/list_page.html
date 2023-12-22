@@ -18,18 +18,52 @@
 
 <body>
 
-    <h1>アップロード一覧</h1>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bs-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container text-center">
+
+        {% if empty_img %}
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">おっと!</h4>
+            <p>まだ画像をアップロードしていないようです</p>
+        </div>
+
+        {% else %}
         <div class="row row-cols-3">
             {% for file_name in file_names %}
             <div class="col">
-                <a href="{{ url_for('static', filename= 'images/upload/' + file_name )}}">
-                    <img src="{{ url_for('static', filename= 'images/upload/' + file_name )}}" alt="file_name">
+                <a href="{{ url_for('static', filename= 'images/' + img_dir + '/' + file_name )}}">
+                    <img src="{{ url_for('static', filename= 'images/' + img_dir + '/' + file_name )}}" alt="file_name">
                     <p>{{ file_name }}</p>
                 </a>
             </div>
             {% endfor %}
         </div>
+        {% endif %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
